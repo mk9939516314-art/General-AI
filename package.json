@@ -1,0 +1,14 @@
+{
+  "name": "general-ai-platform",
+  "version": "1.0.0",
+  "description": "General AI - India's Leading AI Workforce Platform (Full-Stack Vercel Ready)",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "dev": "vercel dev"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
