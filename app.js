@@ -34,6 +34,7 @@
         setupSmoothScroll();
         setupScrollEffects();
         setupIntersectionObserver();
+        setupStoryScroll();
         setupProjectPortal();
         setupAuthModals();
         checkAuthStatus();
@@ -360,6 +361,23 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('aos-animate'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
+    }
+
+    function setupStoryScroll() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const visual = document.querySelector('.hero__visual');
+        if (!visual) return;
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => {
+                const progress = Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1);
+                visual.style.setProperty('--story-progress', progress.toFixed(3));
+                visual.style.transform = `translateY(${progress * 50}px) scale(${1 - progress * 0.06})`;
+                ticking = false;
+            });
+        }, { passive: true });
     }
 
     function setupParallax() {
